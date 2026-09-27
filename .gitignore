@@ -1,0 +1,52 @@
+# Documentação interna, instruções e arquivos de trabalho
+/LEIA-ME.md
+/AGENTS.md
+/docs/
+/documentos/
+/prompts/
+/work/
+/tmp/
+/temp/
+/screenshots/
+/qa/
+/.agents/
+/.codex/
+
+# Produtos digitais e pacotes de entrega (não são arquivos do site)
+*.pdf
+*.zip
+*.rar
+*.7z
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.xls
+*.xlsx
+
+# Credenciais e configurações privadas
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Ferramentas, dependências e arquivos temporários
+.DS_Store
+._*
+Thumbs.db
+.vscode/
+.idea/
+.vercel/
+node_modules/
+.cache/
+coverage/
+*.log
+*.tmp
+*.swp
+*~
+
+# dist/ contém o site completo e DEVE ser versionado.
+# licencas/ contém as licenças obrigatórias das fontes e DEVE ser versionado.
