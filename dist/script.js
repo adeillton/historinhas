@@ -21,21 +21,6 @@ preview.addEventListener('close', () => {
   document.body.classList.remove('modal-open');
   previousFocus?.focus({preventScroll: true});
 });
-const timerEls = document.querySelectorAll('.js-timer');
-function updateOfferTimer() {
-  const now = new Date();
-  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-  const remaining = Math.max(0, midnight - now);
-  const h = String(Math.floor(remaining / 3600000)).padStart(2, '0');
-  const m = String(Math.floor((remaining % 3600000) / 60000)).padStart(2, '0');
-  const s = String(Math.floor((remaining % 60000) / 1000)).padStart(2, '0');
-  const text = `${h}:${m}:${s}`;
-  timerEls.forEach(el => { el.textContent = text; });
-}
-if (timerEls.length) {
-  updateOfferTimer();
-  setInterval(updateOfferTimer, 1000);
-}
 // Preserve only campaign attribution parameters. Never forward arbitrary query data.
 const sourceParams = new URLSearchParams(location.search);
 const allowed = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
@@ -45,5 +30,13 @@ document.querySelectorAll('a.checkout').forEach(link => {
     const value = sourceParams.get(key);
     if (value) checkout.searchParams.set(key, value.slice(0, 250));
   });
+  if (!checkout.searchParams.has('src')) checkout.searchParams.set('src', 'site_historinhas');
+  const creative = sourceParams.get('utm_content');
+  if (creative && !checkout.searchParams.has('sck')) checkout.searchParams.set('sck', creative.slice(0, 250));
   link.href = checkout.toString();
+  link.addEventListener('click', () => {
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'InitiateCheckout', {currency: 'BRL', value: 14.90});
+    }
+  });
 });
